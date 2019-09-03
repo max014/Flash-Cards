@@ -1,27 +1,28 @@
 import React from 'react';
 import {
-  View,
   StyleSheet,
-  Text
+  Text,
+  View
 } from 'react-native';
 import {GlobalStyles} from '../constants/GlobalStyles';
 
-export default function DeckCover(props) {
+
+export default function Card(props) {
   return (
     <View style={styles.card}>
-      <Text style={GlobalStyles.whiteText}>{props.deck.title}</Text>
-      <Text style={GlobalStyles.whiteText}>{props.deck.description}</Text>
-      <Text style={GlobalStyles.whiteText}>Created By {props.deck.author}</Text>
+      <Text>{props.card.q}</Text>
+      <Text>{props.card.a}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    height: 220,
-    width: 180,
-    backgroundColor: '#a882dd',
-    margin: 10,
+    height: 420,
+    backgroundColor: '#eee',
+    marginLeft: 25,
+    marginRight: 25,
+    marginBottom: 25,
     borderRadius: 10,
     padding: 10,
     shadowColor: '#000',
