@@ -1,45 +1,47 @@
 import React from 'react';
 import {
+  View,
   ScrollView,
   StyleSheet,
   Text,
-  Button
+  TouchableWithoutFeedback
 } from 'react-native';
 import {GlobalStyles} from '../constants/GlobalStyles';
 import { MonoText } from '../components/StyledText';
+import DeckCover from '../components/DeckCover';
 
-const info = {
-  decks: [
-    {id: 0},
-    {id: 1}
-  ],
-  groups: [
-    {id: 0},
-    {id: 1}
-  ]
-}
+const decks = [
+    {
+      id: 0,
+      title: 'Math',
+      description: "do some numbers",
+      author: "Max Oppor"
+    },
+    {
+      id: 1,
+      title: "Spanish",
+      description: "speak some spanish",
+      author: "Max Oppor"
+    }
+];
 
 export default function HomeScreen(props) {
   return (
-    <ScrollView
+    <View
       style={GlobalStyles.container}>
-      <Text>- Your Decks</Text>
-      {info.decks.map(deck => (
-        <Button
-          key={deck.id}
-          title="Deck"
-          onPress={() => props.navigation.navigate('Deck', {id: deck.id})}
-        />
-      ))}
-      <Text>- Your Groups</Text>
-      {info.groups.map(group => (
-        <Button
-          key={group.id}
-          title="Group"
-          onPress={() => props.navigation.navigate('Group', {id: group.id})}
-        />
-      ))}
-    </ScrollView>
+      <Text>Saved Decks</Text>
+      <ScrollView horizontal>
+        {decks.map(deck => (
+          <TouchableWithoutFeedback
+            key={deck.id}
+            onPress={() => props.navigation.navigate('Deck', {deck: deck})}>
+            <View>
+              <DeckCover deck={deck}/>
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
+      </ScrollView>
+    </View>
   );
 }
 

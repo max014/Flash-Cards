@@ -6,7 +6,6 @@ export default function SearchScreen() {
   return (
     <ScrollView style={GlobalStyles.container}>
       <Text>- Search Decks</Text>
-      <Text>- Search Groups</Text>
     </ScrollView>
   );
 }

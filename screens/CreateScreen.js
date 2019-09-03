@@ -6,7 +6,6 @@ export default function CreateScreen() {
   return (
     <ScrollView style={GlobalStyles.container}>
       <Text>- Create Deck</Text>
-      <Text>- Create Group</Text>
     </ScrollView>
   );
 }
