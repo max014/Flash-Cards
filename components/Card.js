@@ -7,43 +7,80 @@ import {
   Animated
 } from 'react-native';
 import {GlobalStyles} from '../constants/GlobalStyles';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default class Card extends React.Component {
   state = {
-    turned: new Animated.Value(0)
+    turned: false,
+    front: new Animated.Value(0),
+    back: new Animated.Value(0)
   };
   
   turn = () => {
-    Animated.timing(this.state.turned, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: true
-    }).start();
+    Animated.sequence([
+      Animated.timing(this.state.front, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.back, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true
+      })
+    ]).start();
+    this.setState({turned: true});
   };
 
-  spin = this.state.turned.interpolate({
+  unturn = () => {
+    Animated.sequence([
+      Animated.timing(this.state.back, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true
+      }),
+      Animated.timing(this.state.front, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true
+      })
+    ]).start();
+    this.setState({turned: false});
+  };
+
+  front = this.state.front.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0deg', '180deg'],
+    outputRange: [1, 0],
   });
-  
+
+  back = this.state.back.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
+
   render() {
     return (
-      <TouchableWithoutFeedback onPress={this.turn}>
+      <TouchableWithoutFeedback onPress={this.state.turned ? this.unturn : this.turn}>
 
         <View style={styles.card}>
-          <Animated.View style={
-              {transform: [{rotateY: this.spin}]}
-            }>
             <View style={styles.flipCardInner}>
-              <View style={[styles.flipCardFront,]}>
+
+              <Animated.View style={[
+                styles.flipCardFace,
+                {transform: [{scaleX: this.front}]}
+              ]}>
                 <Text style={styles.text}>{this.props.card.q}</Text>
-              </View>
-              <View style={[styles.flipCardBack,]}>
+              </Animated.View>
+
+              <Animated.View style={[
+                styles.flipCardFace,
+                {transform: [{scaleX: this.back}]}
+              ]}>
                 <Text style={styles.text}>{this.props.card.a}</Text>
-              </View>
-            </View>
-          </Animated.View>
+              </Animated.View>
+
+          </View>
         </View>
 
       </TouchableWithoutFeedback>
@@ -76,20 +113,11 @@ const styles = StyleSheet.create({
     height: "100%",
     textAlign: "center"
   },
-  flipCardFront: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#eee"
-  },
-  flipCardBack: {
+  flipCardFace: {
     position: "absolute",
     width: "100%",
     height: "100%",
     backgroundColor: "#eee",
-    transform: [{perspective: 1000},{rotateY: "180deg"}],
-  },
-  flip: {
-    transform: [{rotateY: "180deg"}]
+    transform: [{perspective: 1000}],
   }
 });
