@@ -13,7 +13,7 @@ export default function DeckDetailScreen(props) {
   return (
     <ScrollView
       style={GlobalStyles.container}>
-      <Text>{deck.title}</Text>
+      <Text style={GlobalStyles.h1}>{deck.title}</Text>
       <Text>{deck.cards.length} Cards</Text>
       <Text>{deck.description}</Text>
       <Text>Created By {deck.author}</Text>

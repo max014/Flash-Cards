@@ -35,12 +35,12 @@ HomeStack.path = '';
 
 const SearchStack = createStackNavigator(
   {
-    Search: SearchScreen,
+    Explore: SearchScreen,
   }
 );
 
 SearchStack.navigationOptions = {
-  tabBarLabel: 'Search',
+  tabBarLabel: 'Explore',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
   ),

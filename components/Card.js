@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -6,9 +6,6 @@ import {
   TouchableWithoutFeedback,
   Animated
 } from 'react-native';
-import {GlobalStyles} from '../constants/GlobalStyles';
-import { LinearGradient } from 'expo-linear-gradient';
-
 
 export default class Card extends React.Component {
   state = {
@@ -31,6 +28,8 @@ export default class Card extends React.Component {
       })
     ]).start();
     this.setState({turned: true});
+
+    
   };
 
   unturn = () => {
@@ -70,14 +69,14 @@ export default class Card extends React.Component {
                 styles.flipCardFace,
                 {transform: [{scaleX: this.front}]}
               ]}>
-                <Text style={styles.text}>{this.props.card.q}</Text>
+                <Text style={styles.text}>{this.props.card.front}</Text>
               </Animated.View>
 
               <Animated.View style={[
                 styles.flipCardFace,
                 {transform: [{scaleX: this.back}]}
               ]}>
-                <Text style={styles.text}>{this.props.card.a}</Text>
+                <Text style={styles.text}>{this.props.card.back}</Text>
               </Animated.View>
 
           </View>
